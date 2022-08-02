@@ -1,16 +1,19 @@
 
 from pathlib import Path
+import os
+import environ
 
+env = environ.Env()
+environ.Env.read_env()
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
-SECRET_KEY = 'django-insecure-%g0lq+kgs!u1#1cgquc6c4v8zwf^s4qsh1_690qme+ogb_2p=0'
+SECRET_KEY = os.environ.get('SECRET_KEY')
 
+DEBUG = os.environ.get('DEBUG')
 
-DEBUG = True
-
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -39,7 +42,7 @@ ROOT_URLCONF = 'core.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
